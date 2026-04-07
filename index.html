@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Celedonia Environmental — Expert Fisheries &amp; Aquatic Consulting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: #1a2e3f;
+      background: #ffffff;
+    }
+    h1, h2, h3, h4, blockquote {
+      font-family: 'Raleway', sans-serif;
+    }
+    /* Nav transition */
+    #navbar {
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    /* Hero bg — image moved to ::before for zoom animation */
+    #home {
+      background-image: none;
+    }
+    /* Button hover states */
+    .btn-navy {
+      background: #1B3A5C;
+      color: #fff;
+      letter-spacing: 0.14em;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-navy:hover { background: #0f2436; }
+    .btn-navy:active { transform: scale(0.98); }
+
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,0.85);
+      color: #fff;
+      letter-spacing: 0.14em;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    }
+    .btn-outline:hover {
+      background: #fff;
+      color: #1B3A5C;
+      border-color: #fff;
+    }
+    .btn-outline:active { transform: scale(0.98); }
+
+    /* Service card hover */
+    .service-card {
+      transition: border-color 0.2s ease, padding-left 0.2s ease;
+    }
+    .service-card:hover {
+      border-color: #2E6DA4;
+    }
+
+    /* Nav link hover */
+    .nav-link {
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: rgba(255,255,255,0.7);
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after { width: 100%; }
+    .nav-link:hover { color: rgba(255,255,255,0.75); }
+    .nav-link:focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 3px; }
+
+    /* Decorative image blur-in on load */
+    @keyframes imgReveal {
+      from { filter: blur(8px); opacity: 0.7; }
+      to   { filter: blur(0);   opacity: 1;   }
+    }
+    .deco-img { animation: imgReveal 0.9s ease-in-out both; }
+
+    /* Hero background slow zoom */
+    @keyframes heroBgZoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.06); }
+    }
+    #home {
+      background-size: cover;
+      background-position: center 40%;
+    }
+    #home::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('brand_assets/bull-trout-hero.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      animation: heroBgZoom 18s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    /* Hero content fade-up (staggered) */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-item {
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .hero-item:nth-child(1) { animation-delay: 0.15s; }
+    .hero-item:nth-child(2) { animation-delay: 0.30s; }
+    .hero-item:nth-child(3) { animation-delay: 0.45s; }
+    .hero-item:nth-child(4) { animation-delay: 0.58s; }
+    .hero-item:nth-child(5) { animation-delay: 0.70s; }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    /* Service card hover lift */
+    .service-card {
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(27,58,92,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-transparent" style="background: #1B3A5C;">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
+      <a href="#home" class="flex-shrink-0" aria-label="Celedonia Environmental home">
+        <img src="brand_assets/celedonia-logo-transparent.png" alt="Celedonia Environmental" class="h-9" style="filter: brightness(0) invert(1); opacity: 0.92;">
+      </a>
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#home"     class="nav-link text-white/85 text-sm font-medium tracking-wide">Home</a>
+        <a href="#services" class="nav-link text-white/85 text-sm font-medium tracking-wide">Services</a>
+        <a href="#about"    class="nav-link text-white/85 text-sm font-medium tracking-wide">About</a>
+        <a href="#contact"  class="nav-link text-white/85 text-sm font-medium tracking-wide">Contact</a>
+      </div>
+      <!-- Mobile hamburger -->
+      <button id="menu-toggle" class="md:hidden flex flex-col justify-center gap-1.5 p-2 -mr-2"
+              aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger-line block w-6 h-0.5 bg-white/85 transition-all duration-300"></span>
+        <span class="hamburger-line block w-6 h-0.5 bg-white/85 transition-all duration-300"></span>
+        <span class="hamburger-line block w-6 h-0.5 bg-white/85 transition-all duration-300"></span>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out" style="background: #152e4a;">
+      <div class="flex flex-col px-6 pb-4 pt-2 gap-4">
+        <a href="#home"     class="mobile-nav-link text-white/85 text-sm font-medium tracking-wide py-1">Home</a>
+        <a href="#services" class="mobile-nav-link text-white/85 text-sm font-medium tracking-wide py-1">Services</a>
+        <a href="#about"    class="mobile-nav-link text-white/85 text-sm font-medium tracking-wide py-1">About</a>
+        <a href="#contact"  class="mobile-nav-link text-white/85 text-sm font-medium tracking-wide py-1">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ── HERO ── -->
+  <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Image overlays (z-index above ::before bg) -->
+    <div class="absolute inset-0" style="z-index:1; background: linear-gradient(160deg, rgba(10,25,45,0.38) 0%, rgba(10,25,45,0.28) 55%, rgba(255,255,255,0) 100%);"></div>
+    <div class="absolute inset-0" style="z-index:1; background: radial-gradient(ellipse at center, rgba(10,25,45,0.05) 0%, rgba(10,25,45,0.22) 100%);"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-6 max-w-3xl mx-auto pt-20">
+      <p class="hero-item text-white/75 text-xs font-semibold tracking-[0.28em] uppercase mb-7">
+        Science &nbsp;•&nbsp; Management &nbsp;•&nbsp; Regulatory
+      </p>
+      <h1 class="hero-item text-white font-bold leading-[1.08] mb-6"
+          style="font-size: clamp(2.6rem, 6vw, 4.2rem); text-shadow: 0 3px 28px rgba(5,18,35,0.35);">
+        Expert Fisheries &amp;<br>Aquatic Consulting
+      </h1>
+      <p class="hero-item text-white/85 leading-relaxed mb-4"
+         style="font-size: clamp(1rem, 2.2vw, 1.2rem); font-family: 'Open Sans', sans-serif; max-width: 34rem; margin-left: auto; margin-right: auto;">
+        Empowering clients with strategic aquatic resource solutions across the Pacific Northwest.
+      </p>
+      <p class="hero-item text-[#8ecfef] font-semibold mb-10 text-sm tracking-wide"
+         style="font-family: 'Open Sans', sans-serif;">
+        Led by a former NMFS &amp; USFWS Senior Biologist
+      </p>
+      <div class="hero-item flex flex-wrap gap-4 justify-center">
+        <a href="#services" class="btn-navy inline-block px-9 py-3 text-xs font-bold uppercase rounded-sm">
+          Services
+        </a>
+        <a href="#contact" class="btn-outline inline-block px-9 py-3 text-xs font-bold uppercase rounded-sm">
+          Contact
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ── SERVICES ── -->
+  <section id="services" class="pt-12" style="background: #F2F6F9;">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row gap-0 lg:gap-16 items-start">
+        <div class="flex-1 pb-28">
+
+      <!-- Section header -->
+      <div class="reveal mb-16 max-w-2xl">
+        <p class="text-[#2E6DA4] text-xs font-bold tracking-[0.22em] uppercase mb-4">What We Do</p>
+        <h2 class="text-[#1B3A5C] font-bold leading-tight mb-5"
+            style="font-size: clamp(2rem, 4vw, 2.75rem);">
+          Comprehensive Aquatic<br>Resource Services
+        </h2>
+        <p class="text-[#5A6775] leading-relaxed" style="font-size: 1.05rem;">
+          <strong class="text-[#1B3A5C] font-semibold">Celedonia Environmental</strong> provides trusted leadership
+          for the Pacific Northwest's fisheries and aquatic management challenges.
+        </p>
+      </div>
+
+      <!-- Services grid -->
+      <div class="grid md:grid-cols-2 gap-x-14 gap-y-10">
+
+        <div class="service-card reveal reveal-delay-1 border-l-2 border-[#1B3A5C] pl-6">
+          <h3 class="text-[#1B3A5C] font-bold mb-2" style="font-size: 1.05rem;">Strategic Guidance</h3>
+          <p class="text-[#5A6775] leading-relaxed text-sm">
+            Expert counsel for projects and management actions affecting salmons and their habitat.
+          </p>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2 border-l-2 border-[#1B3A5C] pl-6">
+          <h3 class="text-[#1B3A5C] font-bold mb-2" style="font-size: 1.05rem;">ESA Consultations &amp; BA's</h3>
+          <p class="text-[#5A6775] leading-relaxed text-sm">
+            Efficient consultations and approval-ready Biological Assessments led by a former agency insider.
+          </p>
+        </div>
+
+        <div class="service-card reveal reveal-delay-3 border-l-2 border-[#1B3A5C] pl-6">
+          <h3 class="text-[#1B3A5C] font-bold mb-2" style="font-size: 1.05rem;">Independent Technical Reviews</h3>
+          <p class="text-[#5A6775] leading-relaxed text-sm">
+            Science-based insight and unbiased "second-opinion" memos.
+          </p>
+        </div>
+
+        <div class="service-card reveal reveal-delay-4 border-l-2 border-[#1B3A5C] pl-6">
+          <h3 class="text-[#1B3A5C] font-bold mb-2" style="font-size: 1.05rem;">Grant Writing</h3>
+          <p class="text-[#5A6775] leading-relaxed text-sm">
+            Reviewer-ready, criteria-based proposals focused on implementation readiness, measurable benefits, and a clear workplan.
+          </p>
+        </div>
+
+        <div class="service-card reveal reveal-delay-1 border-l-2 border-[#1B3A5C] pl-6">
+          <h3 class="text-[#1B3A5C] font-bold mb-2" style="font-size: 1.05rem;">Field Studies &amp; Surveys</h3>
+          <p class="text-[#5A6775] leading-relaxed text-sm">
+            Well-designed aquatic research and monitoring programs executed with precision.
+          </p>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2 border-l-2 border-[#1B3A5C] pl-6">
+          <h3 class="text-[#1B3A5C] font-bold mb-2" style="font-size: 1.05rem;">Shoreline &amp; In-Water Permitting</h3>
+          <p class="text-[#5A6775] leading-relaxed text-sm">
+            Practical permitting support for complex local, state, and federal aquatic permitting.
+          </p>
+        </div>
+
+        <div class="service-card reveal reveal-delay-3 border-l-2 border-[#1B3A5C] pl-6">
+          <h3 class="text-[#1B3A5C] font-bold mb-2" style="font-size: 1.05rem;">Hatchery &amp; Genetic Management Plans</h3>
+          <p class="text-[#5A6775] leading-relaxed text-sm">
+            HGMPs designed to withstand NMFS and USFWS scrutiny.
+          </p>
+        </div>
+
+        <div class="service-card reveal reveal-delay-4 border-l-2 border-[#1B3A5C] pl-6">
+          <h3 class="text-[#1B3A5C] font-bold mb-2" style="font-size: 1.05rem;">FERC License Support</h3>
+          <p class="text-[#5A6775] leading-relaxed text-sm">
+            License requirements and aquatic resource commitments.
+          </p>
+        </div>
+
+      </div><!-- /services grid -->
+        </div><!-- /left column -->
+
+        <!-- Decorative field photos (3 stacked) -->
+        <div class="hidden lg:flex flex-col gap-4 flex-none" style="width: 260px; padding-top: 2rem;">
+          <img src="brand_assets/Chinook salmon-McAllister Sptings Oct 2025 A.jpg"
+               alt="" aria-hidden="true"
+               class="deco-img w-full object-cover"
+               style="height: 220px; object-position: center 30%; border-radius: 2px;
+                      box-shadow: 0 12px 40px rgba(5,18,35,0.22);">
+          <img src="brand_assets/Chinook salmon McAllister Springs July 2022 D.jpg"
+               alt="" aria-hidden="true"
+               class="deco-img w-full object-cover"
+               style="height: 180px; object-position: center 45%; border-radius: 2px;
+                      box-shadow: 0 12px 40px rgba(5,18,35,0.22); margin-left: 18px;">
+          <img src="brand_assets/Chinook salmon McAllister Springs May 2020 F.jpg"
+               alt="" aria-hidden="true"
+               class="deco-img w-full object-cover"
+               style="height: 200px; object-position: center 40%; border-radius: 2px;
+                      box-shadow: 0 12px 40px rgba(5,18,35,0.22);">
+        </div>
+
+      </div><!-- /flex row -->
+    </div><!-- /max-w-6xl -->
+  </section>
+
+
+
+
+  <!-- ── ABOUT ── -->
+  <section id="about" class="relative py-28" style="background: #0B1D2E; overflow: visible;">
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+        <!-- Text -->
+        <div class="reveal">
+          <p class="text-[#7EC8E3] text-xs font-bold tracking-[0.22em] uppercase mb-4">About</p>
+          <h2 class="text-white font-bold leading-tight mb-1"
+              style="font-size: clamp(2rem, 3.5vw, 2.6rem);">
+            Mark Celedonia, MES
+          </h2>
+          <p class="text-[#7EC8E3] text-xs font-semibold tracking-[0.18em] uppercase mb-8">Owner / Principal</p>
+
+          <blockquote class="border-l-2 pl-6 mb-8" style="border-color: rgba(94,170,200,0.45);">
+            <p class="italic leading-relaxed" style="color: rgba(255,255,255,0.88); font-size: clamp(1.05rem, 2vw, 1.2rem);">
+              "I help clients navigate complex fisheries and aquatic resource challenges — delivering practical results that work for people and fish alike."
+            </p>
+          </blockquote>
+
+          <p class="leading-relaxed mb-5" style="color: rgba(255,255,255,0.62); font-size: 0.98rem;">
+            Over 23 years with <strong style="color: rgba(255,255,255,0.80);">NMFS</strong> and <strong style="color: rgba(255,255,255,0.80);">USFWS</strong>, Mark worked on some of the toughest salmon and habitat projects in Puget Sound, the Columbia River basin, and beyond. With extensive experience in scientific analysis, field investigations, and federal regulatory processes, he provides expert leadership in salmon recovery, habitat restoration, and impact avoidance and minimization strategies for diverse projects.
+          </p>
+          <p class="leading-relaxed" style="color: rgba(255,255,255,0.62); font-size: 0.98rem;">
+            Mark specializes in translating complex science into actionable management recommendations, regulatory guidance, and technical support for federal, state, local, and tribal partners.
+          </p>
+        </div>
+
+        <!-- Headshot -->
+        <div class="reveal reveal-delay-2 flex justify-center md:justify-end">
+          <div class="relative">
+            <img
+              src="brand_assets/headshot.jpg"
+              alt="Mark Celedonia, MES — Owner/Principal"
+              class="rounded-sm object-cover object-top"
+              style="width: 420px; height: 520px; box-shadow: 0 24px 64px rgba(0,0,0,0.45), 0 4px 16px rgba(0,0,0,0.3);"
+            >
+            <div class="mt-4 text-center">
+              <p class="text-white font-semibold text-sm" style="font-family: 'Raleway', sans-serif;">Mark Celedonia, MES</p>
+              <p class="text-xs tracking-widest uppercase mt-0.5" style="color: rgba(255,255,255,0.50);">Owner / Principal</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Stats grid -->
+      <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 mt-20">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div class="reveal reveal-delay-1 text-center p-6 rounded" style="background: rgba(255,255,255,0.05);">
+            <span class="stat-num block text-[#7EC8E3] font-bold" data-target="23" style="font-size: 2.25rem;">23</span>
+            <span class="text-xs font-bold tracking-[0.1em] uppercase" style="color: rgba(255,255,255,0.45);">Years Federal Exp.</span>
+          </div>
+          <div class="reveal reveal-delay-2 text-center p-6 rounded" style="background: rgba(255,255,255,0.05);">
+            <span class="stat-num block text-[#7EC8E3] font-bold" data-target="75" data-suffix="+" style="font-size: 2.25rem;">75+</span>
+            <span class="text-xs font-bold tracking-[0.1em] uppercase" style="color: rgba(255,255,255,0.45);">ESA Consultations</span>
+          </div>
+          <div class="reveal reveal-delay-3 text-center p-6 rounded" style="background: rgba(255,255,255,0.05);">
+            <span class="stat-num block text-[#7EC8E3] font-bold" data-target="79" style="font-size: 2.25rem;">79</span>
+            <span class="text-xs font-bold tracking-[0.1em] uppercase" style="color: rgba(255,255,255,0.45);">Hatchery Programs</span>
+          </div>
+          <div class="reveal reveal-delay-4 text-center p-6 rounded" style="background: rgba(255,255,255,0.05);">
+            <span class="stat-num block text-[#7EC8E3] font-bold" data-target="5" style="font-size: 2.25rem;">5</span>
+            <span class="text-xs font-bold tracking-[0.1em] uppercase" style="color: rgba(255,255,255,0.45);">FERC Licenses</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project History -->
+      <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 mt-20">
+        <h2 class="reveal text-white font-bold mb-10" style="font-size: 1.5rem;">Representative Project History</h2>
+        <div class="grid md:grid-cols-2 gap-10">
+
+          <div class="reveal reveal-delay-1 pl-5" style="border-left: 2px solid rgba(94,170,200,0.35);">
+            <span class="block text-xs font-bold tracking-[0.12em] uppercase mb-3" style="color: #7EC8E3;">Applied Research &amp; Field Surveys</span>
+            <p class="leading-relaxed text-sm" style="color: rgba(255,255,255,0.60);">Led 5-year, multi-million dollar Chinook salmon acoustic tracking studies in Lake Washington. Evaluated fish use of engineered logjams in four western Washington rivers. Used bioenergetic modelling to assess predation on juvenile salmonids.</p>
+          </div>
+
+          <div class="reveal reveal-delay-2 pl-5" style="border-left: 2px solid rgba(94,170,200,0.35);">
+            <span class="block text-xs font-bold tracking-[0.12em] uppercase mb-3" style="color: #7EC8E3;">Technical Support &amp; Analyses</span>
+            <p class="leading-relaxed text-sm" style="color: rgba(255,255,255,0.60);">Lead reviewer for Skokomish River restoration and Skagit River flood control proposals, identifying critical data gaps and ensuring restoration and mitigation effectiveness. Authored tailored grant proposal narratives for Miller River restoration and floodplain reconnection project.</p>
+          </div>
+
+          <div class="reveal reveal-delay-3 pl-5" style="border-left: 2px solid rgba(94,170,200,0.35);">
+            <span class="block text-xs font-bold tracking-[0.12em] uppercase mb-3" style="color: #7EC8E3;">Regulatory Consultations (ESA, MSA, FERC, FWCA)</span>
+            <p class="leading-relaxed text-sm" style="color: rgba(255,255,255,0.60);">Recognized ESA Section 7 expert. Over 75 formal, informal, and programmatic consultations completed across diverse project types. Led FERC license implementation for 5 major hydropower projects.</p>
+          </div>
+
+          <div class="reveal reveal-delay-4 pl-5" style="border-left: 2px solid rgba(94,170,200,0.35);">
+            <span class="block text-xs font-bold tracking-[0.12em] uppercase mb-3" style="color: #7EC8E3;">Hatchery Consultations</span>
+            <p class="leading-relaxed text-sm" style="color: rgba(255,255,255,0.60);">Successfully led high-priority, litigation-driven programmatic ESA consultation on the federal Southern Resident Killer Whale prey increase program involving release of 20 million hatchery Chinook smolts across the Pacific Northwest.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Education & Affiliations -->
+      <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 mt-20 pb-4">
+        <h2 class="text-white font-bold mb-10" style="font-size: 1.5rem;">Education &amp; Affiliations</h2>
+        <div class="flex flex-col gap-8">
+
+          <div class="pl-5" style="border-left: 2px solid rgba(94,170,200,0.35);">
+            <span class="block text-xs font-bold tracking-[0.12em] uppercase mb-3" style="color: #7EC8E3;">Academic Background</span>
+            <p class="leading-relaxed text-sm" style="color: rgba(255,255,255,0.60);">
+              <strong style="color: rgba(255,255,255,0.80);">Master of Environmental Studies</strong>, Salmonid and Watershed Ecology — The Evergreen State College, Olympia, WA.<br>
+              <strong style="color: rgba(255,255,255,0.80);">B.S. Mechanical Engineering</strong> — Kettering University, Flint, MI.
+            </p>
+          </div>
+
+          <div class="pl-5" style="border-left: 2px solid rgba(94,170,200,0.35);">
+            <span class="block text-xs font-bold tracking-[0.12em] uppercase mb-3" style="color: #7EC8E3;">Professional Leadership</span>
+            <p class="leading-relaxed text-sm" style="color: rgba(255,255,255,0.60);">
+              <strong style="color: rgba(255,255,255,0.80);">American Fisheries Society (AFS):</strong> Lifetime Member.<br>
+              <strong style="color: rgba(255,255,255,0.80);">AFS Washington-British Columbia Chapter:</strong> Past-President.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact" class="relative py-28 overflow-hidden">
+    <!-- Background: misty Pacific Northwest harbor — atmospheric, PNW sense of place -->
+    <div class="absolute inset-0"
+         style="background-image: url('brand_assets/IMG_0180-crop-resize.jpg');
+                background-size: cover;
+                background-position: center 50%;"></div>
+    <!-- Overlay to ensure text legibility -->
+    <div class="absolute inset-0"
+         style="background: linear-gradient(to bottom, rgba(6,16,34,0.76) 0%, rgba(6,16,34,0.86) 100%);"></div>
+
+    <!-- Content -->
+    <div class="reveal relative z-10 max-w-xl mx-auto px-6 text-center">
+      <p class="text-[#7EC8E3] text-xs font-bold tracking-[0.22em] uppercase mb-4">Get in Touch</p>
+      <h2 class="text-white font-bold leading-tight mb-5"
+          style="font-size: clamp(2rem, 4vw, 2.6rem);">
+        Ready to Work Together?
+      </h2>
+      <p class="leading-relaxed mb-10" style="color: rgba(255,255,255,0.70); font-size: 1.05rem;">
+        Reach out to discuss your project, schedule a consultation, or learn more about Celedonia Environmental's services.
+      </p>
+      <a href="mailto:mark@celedonia.com"
+         class="btn-outline inline-block px-12 py-4 text-xs font-bold uppercase rounded-sm">
+        Contact Mark
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer style="background: #1B3A5C;" class="py-12">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <img
+        src="brand_assets/celedonia-logo-transparent.png"
+        alt="Celedonia Environmental"
+        class="h-8"
+        style="filter: brightness(0) invert(1); opacity: 0.85;"
+      >
+      <nav class="flex flex-wrap justify-center gap-6" aria-label="Footer navigation">
+        <a href="#home"     class="text-white/55 hover:text-white text-sm transition-colors duration-200 focus-visible:outline focus-visible:outline-white">Home</a>
+        <a href="#services" class="text-white/55 hover:text-white text-sm transition-colors duration-200 focus-visible:outline focus-visible:outline-white">Services</a>
+        <a href="#about"    class="text-white/55 hover:text-white text-sm transition-colors duration-200 focus-visible:outline focus-visible:outline-white">About</a>
+        <a href="#contact"  class="text-white/55 hover:text-white text-sm transition-colors duration-200 focus-visible:outline focus-visible:outline-white">Contact</a>
+      </nav>
+      <p class="text-white/35 text-xs">&copy; 2024 Celedonia Environmental. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    // ── Mobile hamburger ──
+    const toggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const lines = toggle.querySelectorAll('.hamburger-line');
+    toggle.addEventListener('click', () => {
+      const open = mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px';
+      mobileMenu.style.maxHeight = open ? '0px' : mobileMenu.scrollHeight + 'px';
+      toggle.setAttribute('aria-expanded', String(!open));
+      lines[0].style.transform = open ? '' : 'translateY(8px) rotate(45deg)';
+      lines[1].style.opacity  = open ? '' : '0';
+      lines[2].style.transform = open ? '' : 'translateY(-8px) rotate(-45deg)';
+    });
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.style.maxHeight = '0px';
+        toggle.setAttribute('aria-expanded', 'false');
+        lines[0].style.transform = lines[2].style.transform = '';
+        lines[1].style.opacity = '';
+      });
+    });
+
+    // ── Navbar scroll shadow ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.style.borderBottomColor = 'rgba(0,0,0,0.18)';
+        navbar.style.boxShadow = '0 2px 16px rgba(0,0,0,0.18)';
+      } else {
+        navbar.style.borderBottomColor = 'transparent';
+        navbar.style.boxShadow = 'none';
+      }
+    }, { passive: true });
+
+    // ── Scroll reveal ──
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Stat counter animation ──
+    function animateCount(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1200;
+      const start = performance.now();
+      const update = (now) => {
+        const elapsed = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - elapsed, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (elapsed < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-num[data-target]').forEach(el => statObserver.observe(el));
+  </script>
+
+</body>
+</html>

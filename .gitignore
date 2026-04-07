@@ -1,0 +1,4 @@
+node_modules/
+temporary screenshots/
+*.pptx
+.DS_Store

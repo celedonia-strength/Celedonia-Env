@@ -1,0 +1,151 @@
+<style>
+  /* --- ABOUT PAGE STYLES --- */
+  .about-container {
+    max-width: 800px;
+    font-family: inherit;
+    color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .bio-headline {
+    font-size: clamp(32px, 6vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .mission-quote {
+    font-size: clamp(18px, 4vw, 22px);
+    font-weight: 500;
+    line-height: 1.6;
+    color: #334e68;
+    border-left: 4px solid #334e68;
+    padding-left: 25px;
+    margin: 10px 0;
+  }
+
+  /* --- STATS GRID --- */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    background: #f8fafb;
+    border-radius: 12px;
+  }
+
+  .stat-item { text-align: center; }
+  .stat-number { font-size: 32px; font-weight: 800; color: #334e68; display: block; }
+  .stat-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #576b7c; }
+
+  /* --- PROJECT HISTORY STYLING --- */
+  .project-history { display: flex; flex-direction: column; gap: 35px; }
+  .project-category {
+    padding-left: 20px;
+    border-left: 3px solid #334e68;
+    line-height: 1.7;
+    font-size: 16px;
+    color: #333d47;
+  }
+  .category-title {
+    display: block;
+    font-weight: 750;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+
+  /* --- MOBILE ADAPTATION --- */
+  @media screen and (max-width: 640px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+    .stat-number { font-size: 26px; }
+  }
+</style>
+
+<div class="about-container">
+  <div class="bio-intro">
+    <h1 class="bio-headline">Mark Celedonia, MES</h1>
+    <p style="font-size: 14px; font-weight: 600; color: #576b7c; margin-top: 5px;">OWNER / PRINCIPAL</p>
+    
+    <div class="mission-quote">
+      “I help clients navigate complex fisheries and aquatic resource challenges — delivering practical results that work for people and fish alike.”
+    </div>
+    
+    <p style="font-size: 18px; line-height: 1.8; color: #333d47;">
+      Over 23 years with <strong>NMFS</strong> and <strong>USFWS</strong>, Mark worked on some of the toughest salmon and habitat projects in Puget Sound, the Columbia River basin, and beyond. With extensive experience in scientific analysis, field investigations, and federal regulatory processes, he provides expert leadership in salmon recovery, habitat restoration, and impact avoidance and minimization strategies for diverse projects.
+    </p>
+  </div>
+  
+    <p style="font-size: 18px; line-height: 1.8; color: #333d47;">
+      Mark specializes in translating complex science into actionable management recommendations, regulatory guidance, and technical support for federal, state, local, and tribal partners.
+    </p>
+  </div>
+  
+  <div class="stats-grid">
+    <div class="stat-item"><span class="stat-number">23</span><span class="stat-label">Years Federal Exp.</span></div>
+    <div class="stat-item"><span class="stat-number">75+</span><span class="stat-label">ESA Consultations</span></div>
+    <div class="stat-item"><span class="stat-number">79</span><span class="stat-label">Hatchery Programs</span></div>
+    <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">FERC Licenses</span></div>
+  </div>
+
+  <div class="project-history">
+    <h2 style="font-size: 24px; font-weight: 800;">Representative Project History</h2>
+    
+    <div class="project-category">
+      <span class="category-title">Applied Research & Field Surveys</span>
+      Led 5-year, multi-million dollar Chinook salmon acoustic tracking studies in Lake Washington. Evaluated fish use of engineered logjams in four western Washington rivers. Used bioenergetic modelling to assess predation on juvenile salmonids.
+    </div>
+
+    <div class="project-category">
+      <span class="category-title">Technical Support & Analyses</span>
+      Lead reviewer for Skokomish River restoration and Skagit River flood control proposals, identifying critical data gaps and ensuring restoration and mitigation effectiveness. Authored tailored grant proposal narratives for Miller River restoration and floodplain reconnection project.
+    </div>
+
+    <div class="project-category">
+      <span class="category-title">Regulatory Consultations (ESA, MSA, FERC, FWCA)</span>
+      Recognized ESA Section 7 expert. Over 75 formal, informal, and programmatic consultations completed across diverse project types. Led FERC license implementation for 5 major hydropower projects.
+    </div>
+
+    <div class="project-category">
+      <span class="category-title">Hatchery Consultations</span>
+      Successfully led high-priority, litigation-driven programmatic ESA consultation on the federal Southern Resident Killer Whale prey increase program involving release of 20 million hatchery Chinook smolts across the Pacific Northwest.
+    </div>
+  </div>
+</div>
+<style>
+  /* --- EDUCATION & AFFILIATIONS STYLES --- */
+  .credentials-section {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    margin-top: 20px;
+  }
+  
+  .credential-category {
+    padding-left: 20px;
+    border-left: 3px solid #334e68;
+    line-height: 1.7;
+    font-size: 16px;
+    color: #333d47;
+  }
+</style>
+
+<div class="credentials-section">
+  <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 5px;">Education & Affiliations</h2>
+  
+  <div class="credential-category">
+    <span class="category-title">Academic Background</span>
+    <strong>Master of Environmental Studies</strong>, Salmonid and Watershed Ecology — The Evergreen State College, Olympia, WA.<br>
+    <strong>B.S. Mechanical Engineering</strong> — Kettering University, Flint, MI.
+  </div>
+
+  <div class="credential-category">
+    <span class="category-title">Professional Leadership</span>
+    <strong>American Fisheries Society (AFS):</strong> Lifetime Member.<br>
+    <strong>AFS Washington-British Columbia Chapter:</strong> Past-President.
+  </div>
+</div>

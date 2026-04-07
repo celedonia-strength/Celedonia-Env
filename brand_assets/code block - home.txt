@@ -1,0 +1,108 @@
+<style>
+  /* --- DESKTOP & GLOBAL STYLES --- */
+  .hero-container {
+    max-width: 650px; 
+    font-family: inherit; 
+    color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    gap: 40px; 
+  }
+
+  .tagline {
+    font-size: clamp(10px, 2.5vw, 13px);
+    font-weight: 500;
+    letter-spacing: 0.22em; 
+    text-transform: uppercase;
+    color: #576b7c; 
+    white-space: nowrap; 
+    margin-bottom: -20px;
+  }
+
+  .headline {
+    font-size: clamp(32px, 6vw, 48px); 
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .body-text {
+    font-size: clamp(17px, 3.5vw, 20px);
+    font-weight: 400;
+    line-height: 1.8; 
+    color: #333d47;
+    margin: 0;
+  }
+
+  .credential {
+    font-size: clamp(14px, 3vw, 17px);
+    font-weight: 600;
+    color: #2a4d69; 
+    white-space: nowrap; 
+    margin-top: 5px; 
+  }
+
+  .button-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .cta-button {
+    padding: 14px 32px;
+    border-radius: 50px; 
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-width: 155px;
+    letter-spacing: 0.1em;
+  }
+
+  .btn-primary { background-color: #334e68; color: #ffffff !important; }
+  .btn-secondary { background-color: transparent; color: #334e68 !important; border: 1.5px solid #334e68; }
+
+  /* --- MOBILE-SPECIFIC POLISH (Screens smaller than 640px) --- */
+  @media screen and (max-width: 640px) {
+    .hero-container {
+      gap: 25px; 
+    }
+
+    .headline {
+      font-size: 28px; 
+    }
+
+    /* Polished Credential Spacing */
+    .credential {
+      margin-top: 15px; /* Added 10px boost for mobile separation */
+    }
+
+    .button-group {
+      gap: 12px; 
+      flex-wrap: nowrap; 
+      margin-top: 25px;
+    }
+
+    /* Polished Button Readability */
+    .cta-button {
+      padding: 12px 10px; 
+      font-size: 12px; /* Increased from 11px for better legibility */
+      min-width: 0; 
+      flex: 1; 
+      letter-spacing: 0.05em;
+    }
+  }
+</style>
+
+<div class="hero-container">
+  <div class="tagline">Science • Management • Regulatory</div>
+  <h1 class="headline">Expert Fisheries & Aquatic Consulting</h1>
+  <p class="body-text">Empowering clients with strategic aquatic resource solutions across the Pacific Northwest.</p>
+  <div class="credential">Led by a former NMFS & USFWS Senior Biologist</div>
+  <div class="button-group">
+    <a href="/services" class="cta-button btn-primary">SERVICES</a>
+    <a href="/contact" class="cta-button btn-secondary">CONTACT</a>
+  </div>
+</div>
