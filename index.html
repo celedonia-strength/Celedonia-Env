@@ -120,6 +120,26 @@
     .hero-item:nth-child(4) { animation-delay: 0.58s; }
     .hero-item:nth-child(5) { animation-delay: 0.70s; }
 
+    /* Contact form */
+    .contact-input {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.92rem;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .contact-input::placeholder { color: rgba(255,255,255,0.40); }
+    .contact-input:focus {
+      border-color: rgba(126,200,227,0.7);
+      background: rgba(255,255,255,0.12);
+    }
+    .contact-input option { background: #0B1D2E; color: #fff; }
+
     /* Scroll reveal */
     .reveal {
       opacity: 0;
@@ -439,19 +459,69 @@
          style="background: linear-gradient(to bottom, rgba(6,16,34,0.76) 0%, rgba(6,16,34,0.86) 100%);"></div>
 
     <!-- Content -->
-    <div class="reveal relative z-10 max-w-xl mx-auto px-6 text-center">
-      <p class="text-[#7EC8E3] text-xs font-bold tracking-[0.22em] uppercase mb-4">Get in Touch</p>
-      <h2 class="text-white font-bold leading-tight mb-5"
-          style="font-size: clamp(2rem, 4vw, 2.6rem);">
-        Ready to Work Together?
-      </h2>
-      <p class="leading-relaxed mb-10" style="color: rgba(255,255,255,0.70); font-size: 1.05rem;">
-        Reach out to discuss your project, schedule a consultation, or learn more about Celedonia Environmental's services.
-      </p>
-      <a href="mailto:mark@celedoniaenv.com"
-         class="btn-outline inline-block px-12 py-4 text-xs font-bold uppercase rounded-sm">
-        Contact Mark
-      </a>
+    <div class="reveal relative z-10 max-w-2xl mx-auto px-6">
+      <div class="text-center mb-10">
+        <p class="text-[#7EC8E3] text-xs font-bold tracking-[0.22em] uppercase mb-4">Get in Touch</p>
+        <h2 class="text-white font-bold leading-tight mb-5"
+            style="font-size: clamp(2rem, 4vw, 2.6rem);">
+          Ready to Work Together?
+        </h2>
+        <p class="leading-relaxed" style="color: rgba(255,255,255,0.70); font-size: 1.05rem;">
+          Reach out to discuss your project, schedule a consultation, or learn more about Celedonia Environmental's services.
+        </p>
+      </div>
+
+      <!-- Contact form — powered by Formspree. Replace YOUR_FORM_ID after signing up at formspree.io -->
+      <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
+            class="flex flex-col gap-4" novalidate>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-name" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Name <span class="text-[#7EC8E3]">*</span></label>
+            <input id="cf-name" name="name" type="text" required autocomplete="name"
+                   placeholder="Your name" class="contact-input">
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-email" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Email <span class="text-[#7EC8E3]">*</span></label>
+            <input id="cf-email" name="email" type="email" required autocomplete="email"
+                   placeholder="your@email.com" class="contact-input">
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label for="cf-subject" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Topic</label>
+          <select id="cf-subject" name="topic" class="contact-input" style="cursor: pointer;">
+            <option value="" disabled selected>Select a topic…</option>
+            <option value="ESA Consultation">ESA Consultation / Biological Assessment</option>
+            <option value="Strategic Guidance">Strategic Guidance</option>
+            <option value="Technical Review">Independent Technical Review</option>
+            <option value="Grant Writing">Grant Writing</option>
+            <option value="Field Studies">Field Studies &amp; Surveys</option>
+            <option value="Permitting">Shoreline &amp; In-Water Permitting</option>
+            <option value="HGMP">Hatchery &amp; Genetic Management Plan</option>
+            <option value="FERC">FERC License Support</option>
+            <option value="Other">Other / General Inquiry</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label for="cf-message" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Message <span class="text-[#7EC8E3]">*</span></label>
+          <textarea id="cf-message" name="message" required rows="5"
+                    placeholder="Tell us about your project or question…"
+                    class="contact-input resize-none"></textarea>
+        </div>
+
+        <!-- Honeypot spam field (hidden) -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
+          <button type="submit" id="cf-submit"
+                  class="btn-outline w-full sm:w-auto px-12 py-4 text-xs font-bold uppercase rounded-sm">
+            Send Message
+          </button>
+          <p id="cf-status" class="text-sm" aria-live="polite" style="color: rgba(255,255,255,0.65);"></p>
+        </div>
+      </form>
     </div>
   </section>
 
@@ -520,6 +590,43 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Contact form submission ──
+    const contactForm = document.getElementById('contact-form');
+    const cfSubmit = document.getElementById('cf-submit');
+    const cfStatus = document.getElementById('cf-status');
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+      cfSubmit.disabled = true;
+      cfSubmit.textContent = 'Sending…';
+      cfStatus.textContent = '';
+
+      try {
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { Accept: 'application/json' }
+        });
+        if (res.ok) {
+          contactForm.reset();
+          cfStatus.style.color = '#7EC8E3';
+          cfStatus.textContent = 'Thank you — we\'ll be in touch soon.';
+          cfSubmit.textContent = 'Sent';
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        cfStatus.style.color = '#f87171';
+        cfStatus.textContent = 'Something went wrong. Please email mark@celedoniaenv.com directly.';
+        cfSubmit.disabled = false;
+        cfSubmit.textContent = 'Send Message';
+      }
+    });
 
     // ── Stat counter animation ──
     function animateCount(el) {
