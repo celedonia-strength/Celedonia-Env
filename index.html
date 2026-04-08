@@ -477,37 +477,47 @@
 
         <div class="grid sm:grid-cols-2 gap-4">
           <div class="flex flex-col gap-1.5">
-            <label for="cf-name" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Name <span class="text-[#7EC8E3]">*</span></label>
-            <input id="cf-name" name="name" type="text" required autocomplete="name"
-                   placeholder="Your name" class="contact-input">
+            <label for="cf-fname" class="text-white/60 text-xs font-semibold tracking-wide uppercase">First Name <span class="text-[#7EC8E3]">*</span></label>
+            <input id="cf-fname" name="first_name" type="text" required autocomplete="given-name"
+                   placeholder="First name" class="contact-input">
           </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-lname" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Last Name <span class="text-[#7EC8E3]">*</span></label>
+            <input id="cf-lname" name="last_name" type="text" required autocomplete="family-name"
+                   placeholder="Last name" class="contact-input">
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
           <div class="flex flex-col gap-1.5">
             <label for="cf-email" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Email <span class="text-[#7EC8E3]">*</span></label>
             <input id="cf-email" name="email" type="email" required autocomplete="email"
                    placeholder="your@email.com" class="contact-input">
           </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-phone" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Phone</label>
+            <input id="cf-phone" name="phone" type="tel" autocomplete="tel"
+                   placeholder="(360) 555-0100" class="contact-input">
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-org" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Company / Organization</label>
+            <input id="cf-org" name="organization" type="text" autocomplete="organization"
+                   placeholder="Your organization" class="contact-input">
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-location" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Project Location</label>
+            <input id="cf-location" name="project_location" type="text"
+                   placeholder="e.g. Skagit River, WA" class="contact-input">
+          </div>
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <label for="cf-subject" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Topic</label>
-          <select id="cf-subject" name="topic" class="contact-input" style="cursor: pointer;">
-            <option value="" disabled selected>Select a topic…</option>
-            <option value="ESA Consultation">ESA Consultation / Biological Assessment</option>
-            <option value="Strategic Guidance">Strategic Guidance</option>
-            <option value="Technical Review">Independent Technical Review</option>
-            <option value="Grant Writing">Grant Writing</option>
-            <option value="Field Studies">Field Studies &amp; Surveys</option>
-            <option value="Permitting">Shoreline &amp; In-Water Permitting</option>
-            <option value="HGMP">Hatchery &amp; Genetic Management Plan</option>
-            <option value="FERC">FERC License Support</option>
-            <option value="Other">Other / General Inquiry</option>
-          </select>
-        </div>
-
-        <div class="flex flex-col gap-1.5">
-          <label for="cf-message" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Message <span class="text-[#7EC8E3]">*</span></label>
+          <label for="cf-message" class="text-white/60 text-xs font-semibold tracking-wide uppercase">Brief Project Overview <span class="text-[#7EC8E3]">*</span></label>
           <textarea id="cf-message" name="message" required rows="5"
-                    placeholder="Tell us about your project or question…"
+                    placeholder="Briefly describe your project or question…"
                     class="contact-input resize-none"></textarea>
         </div>
 
