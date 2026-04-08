@@ -14,5 +14,8 @@
   "type": "module",
   "devDependencies": {
     "puppeteer": "^24.40.0"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
